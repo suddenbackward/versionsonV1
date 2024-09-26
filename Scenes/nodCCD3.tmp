@@ -1,0 +1,158 @@
+[gd_scene load_steps=21 format=3 uid="uid://d0dqpb3ktk2ij"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_dp077"]
+[ext_resource type="AudioStream" uid="uid://dph2ktqdkelst" path="res://Sounds/looming.wav" id="2_y2i4i"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="3_xeqbp"]
+[ext_resource type="Texture2D" uid="uid://b7egl7w2mjh1n" path="res://Frames/prplcat3.png" id="3_ybe8l"]
+[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="5_3fpsl"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="6_7ob1a"]
+[ext_resource type="Script" path="res://Scripts/beat_timer.gd" id="6_oevdq"]
+[ext_resource type="Script" path="res://Scripts/rythm_bar.gd" id="6_w8jrg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6h826"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qby5u"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ask3l"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_717h7"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16ky7"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsnqi"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxtkn"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jt5ta"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bjfce"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6h826")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qby5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ask3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_717h7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16ky7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsnqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxtkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jt5ta")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjv1c"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ieudl"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t77k7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjv1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ieudl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dp077")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(310, 236)
+script = ExtResource("3_xeqbp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(4.6875, 4.6875)
+sprite_frames = SubResource("SpriteFrames_bjfce")
+autoplay = "default"
+
+[node name="ProgressBar" type="ProgressBar" parent="Player" node_paths=PackedStringArray("player")]
+anchors_preset = -1
+anchor_left = -2.94
+anchor_top = -3.673
+anchor_right = 10.685
+anchor_bottom = -1.986
+offset_left = -94.0
+offset_top = -74.0
+offset_right = 94.0
+offset_bottom = -47.0
+script = ExtResource("5_3fpsl")
+player = NodePath("..")
+
+[node name="RythmBar" type="Panel" parent="Player"]
+offset_left = -276.0
+offset_top = 307.0
+offset_right = 791.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("6_w8jrg")
+
+[node name="BeatTimer" type="Timer" parent="Player/RythmBar"]
+script = ExtResource("6_oevdq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player/RythmBar"]
+stream = ExtResource("2_y2i4i")
+volume_db = -25.559
+
+[node name="SubBeatTimer" type="Timer" parent="Player/RythmBar"]
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(941, 242)
+script = ExtResource("6_7ob1a")
+
+[node name="EnemyTimer" type="Timer" parent="Enemy"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+position = Vector2(-1.19209e-07, 9.53674e-07)
+scale = Vector2(8.25, 8.25)
+sprite_frames = SubResource("SpriteFrames_t77k7")
+autoplay = "default"
+frame = 1
+frame_progress = 1.0
+flip_h = true
+
+[connection signal="timeout" from="Player/RythmBar/BeatTimer" to="Player/RythmBar" method="_on_beat_timer_timeout"]
+[connection signal="timeout" from="Player/RythmBar/SubBeatTimer" to="Player/RythmBar" method="_on_sub_beat_timer_timeout"]
+[connection signal="timeout" from="Enemy/EnemyTimer" to="Enemy" method="_on_enemy_timer_timeout"]

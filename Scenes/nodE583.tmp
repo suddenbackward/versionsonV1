@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0dqpb3ktk2ij"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_dp077"]
+[ext_resource type="AudioStream" uid="uid://dph2ktqdkelst" path="res://Sounds/looming.wav" id="2_y2i4i"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="3_xeqbp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vaxy6"]
+bg_color = Color(0.88964, 0.450004, 0.426416, 1)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dp077")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 276.0
+offset_top = 158.0
+offset_right = 568.0
+offset_bottom = 380.0
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 698.0
+offset_top = 246.0
+offset_right = 738.0
+offset_bottom = 286.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vaxy6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_y2i4i")
+volume_db = -25.559
+
+[node name="Player" type="AnimatedSprite2D" parent="."]
+script = ExtResource("3_xeqbp")
+
+[node name="Enemy" type="AnimatedSprite2D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

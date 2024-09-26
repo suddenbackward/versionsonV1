@@ -1,0 +1,173 @@
+[gd_scene load_steps=23 format=3 uid="uid://d0dqpb3ktk2ij"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_dp077"]
+[ext_resource type="AudioStream" uid="uid://dph2ktqdkelst" path="res://Sounds/looming.wav" id="2_y2i4i"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="3_xeqbp"]
+[ext_resource type="Texture2D" uid="uid://b7egl7w2mjh1n" path="res://Frames/prplcat3.png" id="3_ybe8l"]
+[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="5_3fpsl"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="6_7ob1a"]
+[ext_resource type="Texture2D" uid="uid://oqilnv4cguku" path="res://icon.svg" id="8_0x6g0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vaxy6"]
+bg_color = Color(0.88964, 0.450004, 0.426416, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6h826"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qby5u"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ask3l"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_717h7"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16ky7"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsnqi"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxtkn"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jt5ta"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bjfce"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6h826")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qby5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ask3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_717h7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16ky7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsnqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxtkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jt5ta")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjv1c"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ieudl"]
+atlas = ExtResource("3_ybe8l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t77k7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjv1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ieudl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_hlvvr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h08k7"]
+radius = 2.42424
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dp077")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 37.0
+offset_top = 503.0
+offset_right = 1104.0
+offset_bottom = 624.0
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 565.0
+offset_top = 434.0
+offset_right = 605.0
+offset_bottom = 474.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vaxy6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_y2i4i")
+volume_db = -25.559
+
+[node name="Player" type="AnimatedSprite2D" parent="."]
+position = Vector2(318, 240)
+scale = Vector2(4.6875, 4.6875)
+sprite_frames = SubResource("SpriteFrames_bjfce")
+autoplay = "default"
+script = ExtResource("3_xeqbp")
+
+[node name="ProgressBar" type="ProgressBar" parent="Player" node_paths=PackedStringArray("player")]
+anchors_preset = -1
+anchor_left = -2.94
+anchor_top = -3.673
+anchor_right = 10.685
+anchor_bottom = -1.986
+offset_left = -5.44
+offset_top = -13.9787
+offset_right = -5.44
+offset_bottom = -13.9707
+script = ExtResource("5_3fpsl")
+player = NodePath("..")
+
+[node name="Enemy" type="AnimatedSprite2D" parent="."]
+position = Vector2(924, 233)
+rotation = -6.28319
+scale = Vector2(8.25, 8.25)
+sprite_frames = SubResource("SpriteFrames_t77k7")
+autoplay = "default"
+frame = 1
+frame_progress = 1.0
+flip_h = true
+script = ExtResource("6_7ob1a")
+
+[node name="EnemyTimer" type="Timer" parent="Enemy"]
+wait_time = 2.0
+
+[node name="Laser" type="Area2D" parent="Enemy"]
+script = SubResource("GDScript_hlvvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Laser"]
+shape = SubResource("CircleShape2D_h08k7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy/Laser"]
+position = Vector2(-4.76837e-07, -9.53674e-07)
+scale = Vector2(0.0289167, 0.0289167)
+texture = ExtResource("8_0x6g0")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Enemy/EnemyTimer" to="Enemy" method="_on_enemy_timer_timeout"]

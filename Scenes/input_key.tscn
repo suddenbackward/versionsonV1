@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c41g80u7m38gk"]
+
+[ext_resource type="Texture2D" uid="uid://b7kp34l6jddug" path="res://Sprites/input_success.png" id="1_lhd27"]
+[ext_resource type="Script" path="res://Scripts/input_key.gd" id="2_f4ya4"]
+
+[node name="InputKey" type="Sprite2D"]
+texture = ExtResource("1_lhd27")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("2_f4ya4")
