@@ -7,8 +7,8 @@ var health: int = 400
 var has_shield: bool = false
 
 
-func take_damage():
+func take_damage(damage: int):
 	if !has_shield:
-		health -= 20
+		health -= damage
 	else:
-		health -= 5
+		health -= damage / 2

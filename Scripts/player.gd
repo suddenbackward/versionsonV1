@@ -21,20 +21,20 @@ func activate_shield():
 	has_shield = false
 
 
-func take_damage() -> void:
-	super()
+func take_damage(damage: int) -> void:
+	super(damage)
 	health_changed.emit()
 	if health <= 0:
 		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 
 func dodge_up() -> void:
-	position = initial_position + Vector2(0, -100)
+	position = initial_position + Vector2(0, -60)
 	await get_tree().create_timer(2.0).timeout
 	position = initial_position
 
 
 func dodge_down() -> void:
-	position = initial_position + Vector2(0, 100)
+	position = initial_position + Vector2(0, 60)
 	await get_tree().create_timer(2.0).timeout
 	position = initial_position

@@ -3,8 +3,7 @@ extends Panel
 @onready var beat_timer = $BeatTimer
 @onready var sub_beat_timer = $SubBeatTimer
 @onready var audio = $AudioStreamPlayer
-@onready var input_sound = $InputSound
-@onready var player: Player = get_parent()
+@onready var player: Player = get_parent().get_node("Player")
 
 var last_key_pressed = ''
 var queue = []
@@ -29,30 +28,33 @@ func _on_sub_beat_timer_timeout() -> void: # À la fin de la période d'input va
 		last_key_pressed = ''
 	print(queue)
 	check_combo()
-
+	
 
 func _input(event) -> void:
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_A:
 			handle_input('A')
-		elif event.keycode == KEY_E:
-			handle_input('E')
+		elif event.keycode == KEY_X:
+			handle_input('X')
 
 
 func handle_input(key: String) -> void:
-	var sprite_scene = load("res://Scenes/input_key.tscn")
-	var sprite_instance = sprite_scene.instantiate()
-	get_parent().add_child(sprite_instance)
+	# charge la scène pour afficher l'input à l'écran
+	var input_scene = load("res://Scenes/input_key.tscn")
+	var input_key_instance = input_scene.instantiate()
+	input_key_instance.set_key(key)
 
 	var threshold = beat_timer.wait_time / 4
 	if beat_timer.time_left <= threshold * 3 and beat_timer.time_left >= threshold:
 		# input pas sur le beat
-		input_sound.play_failed()
 		queue.clear()
 	else:
 		# success
-		input_sound.play_success()
+		input_key_instance.set_is_success()
 		last_key_pressed = key
+
+	# affiche la touche à l'écran
+	get_parent().add_child(input_key_instance)
 
 
 func blink() -> void:
@@ -63,7 +65,9 @@ func blink() -> void:
 
 func check_combo() -> void:
 	match queue:
-		['A', 'E', 'A', 'E']: player.fire_rocket(); queue.clear()
-		['E', 'A', 'A', 'E']: player.activate_shield(); queue.clear()
-		['A', 'A', 'A', 'E']: player.dodge_up(); queue.clear()
-		['A', 'A', 'E', 'A']: player.dodge_down(); queue.clear()
+		['A', 'X', 'A', 'X']: player.fire_rocket(); queue.clear()
+		['X', 'A', 'A', 'X']: player.activate_shield(); queue.clear()
+		['A', 'A', 'A', 'X']: player.dodge_up(); queue.clear()
+		['A', 'A', 'X', 'A']: player.dodge_down(); queue.clear()
+	if len(queue) >= 4:
+		queue.clear()

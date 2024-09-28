@@ -15,6 +15,14 @@ run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=704
+window/size/viewport_height=448
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/scale=2.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

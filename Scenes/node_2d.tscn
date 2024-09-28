@@ -1,18 +1,59 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0dqpb3ktk2ij"]
+[gd_scene load_steps=27 format=3 uid="uid://d0dqpb3ktk2ij"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_dp077"]
+[ext_resource type="Texture2D" uid="uid://cuvwmc4gb45a0" path="res://Sprites/background.png" id="2_ujmm0"]
 [ext_resource type="AudioStream" uid="uid://dph2ktqdkelst" path="res://Sounds/looming.wav" id="2_y2i4i"]
-[ext_resource type="Texture2D" uid="uid://bnsyfwsbgmtle" path="res://Sprites/spaceship.png" id="3_ogdgn"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="3_xeqbp"]
 [ext_resource type="Texture2D" uid="uid://b7egl7w2mjh1n" path="res://Frames/prplcat3.png" id="3_ybe8l"]
 [ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="5_3fpsl"]
+[ext_resource type="Texture2D" uid="uid://ddmrj6psaiir8" path="res://Sprites/idle.png" id="5_uvjbo"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="6_7ob1a"]
 [ext_resource type="Script" path="res://Scripts/beat_timer.gd" id="6_oevdq"]
 [ext_resource type="Script" path="res://Scripts/rythm_bar.gd" id="6_w8jrg"]
-[ext_resource type="Script" path="res://Scripts/input_sound.gd" id="8_01vdw"]
+[ext_resource type="Texture2D" uid="uid://cw88ujlahhjrw" path="res://Sprites/input_attack.png" id="12_kas7k"]
+[ext_resource type="Texture2D" uid="uid://djd2guly3oxbp" path="res://Sprites/white_musicOn.png" id="12_uw83d"]
+[ext_resource type="Texture2D" uid="uid://86rsb7tmjcqa" path="res://Sprites/input_dodge_down.png" id="13_5g4uu"]
+[ext_resource type="Texture2D" uid="uid://b8drw7wgxvkvw" path="res://Sprites/input_dodge_up.png" id="14_ul7yo"]
+[ext_resource type="Texture2D" uid="uid://cnqqtvlj4ysia" path="res://Sprites/input_shield.png" id="15_blxpr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i4e32"]
+line_spacing = 0.0
+font_size = 8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44moi"]
-size = Vector2(96, 71)
+size = Vector2(38, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n3s8"]
+atlas = ExtResource("5_uvjbo")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmgwh"]
+atlas = ExtResource("5_uvjbo")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kalqp"]
+atlas = ExtResource("5_uvjbo")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7vjrr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n3s8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmgwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n3s8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kalqp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjv1c"]
 atlas = ExtResource("3_ybe8l")
@@ -37,19 +78,109 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8ley"]
-size = Vector2(105, 124)
+size = Vector2(71.5, 83)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1b1nq"]
+texture = ExtResource("12_uw83d")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_dp077")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(310, 236)
-script = ExtResource("3_xeqbp")
+[node name="TextureRect" type="TextureRect" parent="."]
+light_mask = 0
+offset_right = 352.0
+offset_bottom = 224.0
+texture = ExtResource("2_ujmm0")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(-0.999996, 1)
-scale = Vector2(2.71875, 2.71875)
-texture = ExtResource("3_ogdgn")
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 3.0
+offset_right = 349.0
+offset_bottom = 222.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = -2.0
+offset_right = 116.0
+offset_bottom = 10.0
+text = "= launch rocket"
+label_settings = SubResource("LabelSettings_i4e32")
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 76.0
+offset_bottom = 15.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_kas7k")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 210.0
+offset_right = 83.0
+offset_bottom = 226.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_5g4uu")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 210.0
+offset_right = 201.0
+offset_bottom = 226.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_ul7yo")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 127.0
+offset_right = 203.0
+offset_bottom = 16.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_blxpr")
+stretch_mode = 2
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = -2.0
+offset_right = 242.0
+offset_bottom = 10.0
+text = "= shield"
+label_settings = SubResource("LabelSettings_i4e32")
+uppercase = true
+
+[node name="Label3" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 208.0
+offset_right = 122.0
+offset_bottom = 220.0
+text = "= dodge down"
+label_settings = SubResource("LabelSettings_i4e32")
+uppercase = true
+
+[node name="Label4" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 208.0
+offset_right = 240.0
+offset_bottom = 220.0
+text = "= dodge  up"
+label_settings = SubResource("LabelSettings_i4e32")
+uppercase = true
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(35, 104)
+script = ExtResource("3_xeqbp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_44moi")
@@ -60,44 +191,30 @@ anchor_left = -2.94
 anchor_top = -3.673
 anchor_right = 10.685
 anchor_bottom = -1.986
-offset_left = -94.0
-offset_top = -74.0
-offset_right = 94.0
-offset_bottom = -47.0
+offset_top = -24.0
+offset_right = 50.0
+offset_bottom = 3.0
+scale = Vector2(0.5, 0.5)
 script = ExtResource("5_3fpsl")
 player = NodePath("..")
 metadata/_edit_use_anchors_ = true
 
-[node name="RythmBar" type="Panel" parent="Player"]
-offset_left = -276.0
-offset_top = 307.0
-offset_right = 791.0
-offset_bottom = 370.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("6_w8jrg")
-
-[node name="BeatTimer" type="Timer" parent="Player/RythmBar"]
-script = ExtResource("6_oevdq")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player/RythmBar"]
-stream = ExtResource("2_y2i4i")
-volume_db = -16.745
-
-[node name="SubBeatTimer" type="Timer" parent="Player/RythmBar"]
-
-[node name="InputSound" type="AudioStreamPlayer" parent="Player/RythmBar"]
-script = ExtResource("8_01vdw")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_7vjrr")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(941, 242)
+position = Vector2(294, 104)
 script = ExtResource("6_7ob1a")
 
 [node name="EnemyTimer" type="Timer" parent="Enemy"]
+wait_time = 3.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
-position = Vector2(-1.19209e-07, 9.53674e-07)
-scale = Vector2(8.25, 8.25)
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_t77k7")
 autoplay = "default"
 frame = 1
@@ -105,9 +222,25 @@ frame_progress = 1.0
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-position = Vector2(1.5, 6)
 shape = SubResource("RectangleShape2D_t8ley")
 
-[connection signal="timeout" from="Player/RythmBar/BeatTimer" to="Player/RythmBar" method="_on_beat_timer_timeout"]
-[connection signal="timeout" from="Player/RythmBar/SubBeatTimer" to="Player/RythmBar" method="_on_sub_beat_timer_timeout"]
+[node name="RythmBar" type="Panel" parent="."]
+offset_left = 313.0
+offset_top = 175.0
+offset_right = 343.0
+offset_bottom = 205.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1b1nq")
+script = ExtResource("6_w8jrg")
+
+[node name="BeatTimer" type="Timer" parent="RythmBar"]
+script = ExtResource("6_oevdq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RythmBar"]
+stream = ExtResource("2_y2i4i")
+volume_db = -16.745
+
+[node name="SubBeatTimer" type="Timer" parent="RythmBar"]
+
 [connection signal="timeout" from="Enemy/EnemyTimer" to="Enemy" method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="RythmBar/BeatTimer" to="RythmBar" method="_on_beat_timer_timeout"]
+[connection signal="timeout" from="RythmBar/SubBeatTimer" to="RythmBar" method="_on_sub_beat_timer_timeout"]

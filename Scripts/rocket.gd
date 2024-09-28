@@ -8,9 +8,9 @@ func _ready():
 
 func _on_body_entered(body):
 	if body is Enemy:
-		body.take_damage()
+		body.take_damage(100)
 		queue_free()
 
 
 func _physics_process(delta: float) -> void:
-	position += Vector2(400, 0) * delta
+	position += Vector2(200, 0) * delta

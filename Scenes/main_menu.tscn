@@ -12,9 +12,9 @@ grow_vertical = 2
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 350.0
-offset_top = 369.0
-offset_right = 778.0
-offset_bottom = 447.0
+offset_left = 110.0
+offset_top = 141.0
+offset_right = 254.0
+offset_bottom = 180.0
 text = "play"
 script = ExtResource("1_xapqj")
